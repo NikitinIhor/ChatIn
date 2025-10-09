@@ -2,6 +2,7 @@ import cors from "cors";
 import express from "express";
 import pino from "pino-http";
 
+import { getAllChats } from "./services/chat.js";
 import { env } from "./utils/env.js";
 
 export const startServer = () => {
@@ -17,7 +18,17 @@ export const startServer = () => {
   app.use(cors());
   app.use(express.json());
 
-  //   routes
+  // ---------------------------------------   routes
+  app.get("/chatin", async (req, res) => {
+    const data = await getAllChats();
+
+    return res.json({
+      status: 200,
+      message: "Successfully found all chats",
+      data,
+    });
+  });
+  // -----------------------------------------
 
   app.use((req, res) => {
     res.status(404).json({
