@@ -3,12 +3,13 @@ import {
   getAllChatsController,
   getChatByIdController,
 } from "../controllers/chatController.js";
+import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 
 export const chatRouter = Router();
 
-chatRouter.get("/", getAllChatsController);
+chatRouter.get("/", ctrlWrapper(getAllChatsController));
 
-chatRouter.get("/:id", getChatByIdController);
+chatRouter.get("/:id", ctrlWrapper(getChatByIdController));
 
 // Post create
 

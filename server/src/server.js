@@ -1,18 +1,14 @@
 import cors from "cors";
 import express from "express";
-import pino from "pino-http";
 
+import { errorHandler } from "./middlewares/errorHandler.js";
+import { logger } from "./middlewares/logger.js";
+import { notFouundHandler } from "./middlewares/notFouundHandler.js";
 import { chatRouter } from "./routers/chatRouter.js";
 import { env } from "./utils/env.js";
 
 export const startServer = () => {
   const app = express();
-
-  const logger = pino({
-    transport: {
-      target: "pino-pretty",
-    },
-  });
 
   app.use(logger);
   app.use(cors());
@@ -24,17 +20,9 @@ export const startServer = () => {
 
   // -----------------------------------------
 
-  app.use((req, res) => {
-    res.status(404).json({
-      message: `${req.url} not found `,
-    });
-  });
+  app.use(notFouundHandler);
 
-  app.use((error, req, res, next) => {
-    res.status(500).json({
-      message: error.message,
-    });
-  });
+  app.use(errorHandler);
 
   const port = Number(env("PORT", 3000));
 
