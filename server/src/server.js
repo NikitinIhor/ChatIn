@@ -16,7 +16,7 @@ export const startServer = () => {
 
   // ---------------------------------------   routes
 
-  app.use("/chatin", chatRouter);
+  app.use("/chats", chatRouter);
 
   // -----------------------------------------
 
@@ -26,5 +26,7 @@ export const startServer = () => {
 
   const port = Number(env("PORT", 3000));
 
-  app.listen(port, () => console.log(`Server is running on port ${port}`));
+  app.listen(port, () =>
+    console.log(`Server is running on port http://localhost:${port}`)
+  );
 };

@@ -1,7 +1,10 @@
 import { Router } from "express";
 import {
+  createChatController,
+  deleteChatController,
   getAllChatsController,
   getChatByIdController,
+  updateController,
 } from "../controllers/chatController.js";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 
@@ -11,29 +14,11 @@ chatRouter.get("/", ctrlWrapper(getAllChatsController));
 
 chatRouter.get("/:id", ctrlWrapper(getChatByIdController));
 
-// Post create
+chatRouter.post("/", ctrlWrapper(createChatController));
 
-// --------------------------------------------------
-// get user:id
+chatRouter.patch("/:id", ctrlWrapper(updateController));
 
-// import { getUserChats } from "../services/chat.js";
-
-// chatRouter.get("/:userId", async (req, res) => {
-//   try {
-//     const { userId } = req.params;
-//     const data = await getUserChats(userId);
-
-//     res.status(200).json({
-//       message: "Chats for user found successfully",
-//       data,
-//     });
-//   } catch (error) {
-//     res.status(500).json({
-//       message: "Failed to fetch user's chats",
-//       error: error.message,
-//     });
-//   }
-// });
+chatRouter.delete("/:id", ctrlWrapper(deleteChatController));
 
 // --------------------------------
 // GET /conversation/:user1/:user2 – Get conversation between two users
