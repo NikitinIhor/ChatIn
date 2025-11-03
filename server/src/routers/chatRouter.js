@@ -7,18 +7,25 @@ import {
   updateController,
 } from "../controllers/chatController.js";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
+import { validateBody } from "../utils/validateBody.js";
+import { validateId } from "../utils/validateId.js";
+import { chatAddSchema } from "../validation/Chat.js";
 
 export const chatRouter = Router();
 
 chatRouter.get("/", ctrlWrapper(getAllChatsController));
 
-chatRouter.get("/:id", ctrlWrapper(getChatByIdController));
+chatRouter.get("/:id", validateId, ctrlWrapper(getChatByIdController));
 
-chatRouter.post("/", ctrlWrapper(createChatController));
+chatRouter.post(
+  "/",
+  validateBody(chatAddSchema),
+  ctrlWrapper(createChatController)
+);
 
-chatRouter.patch("/:id", ctrlWrapper(updateController));
+chatRouter.patch("/:id", validateId, ctrlWrapper(updateController));
 
-chatRouter.delete("/:id", ctrlWrapper(deleteChatController));
+chatRouter.delete("/:id", validateId, ctrlWrapper(deleteChatController));
 
 // --------------------------------
 // GET /conversation/:user1/:user2 – Get conversation between two users
