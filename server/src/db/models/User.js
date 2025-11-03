@@ -1,0 +1,32 @@
+import { Schema, model } from "mongoose";
+import { emailRegexp } from "../../constants/user.js";
+
+const userSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+      trim: true,
+      minlength: 2,
+      maxlength: 50,
+    },
+    email: {
+      type: String,
+      match: emailRegexp,
+      required: true,
+      unique: true,
+      lowercase: true,
+      trim: true,
+    },
+    password: {
+      type: String,
+      required: true,
+      minlength: 6,
+    },
+  },
+  { versionKey: false, timestamps: true }
+);
+
+const UserCollection = model("User", userSchema);
+
+export default UserCollection;

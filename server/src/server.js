@@ -4,6 +4,7 @@ import express from "express";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { logger } from "./middlewares/logger.js";
 import { notFouundHandler } from "./middlewares/notFouundHandler.js";
+import authRouter from "./routers/authRouter.js";
 import { chatRouter } from "./routers/chatRouter.js";
 import { env } from "./utils/env.js";
 
@@ -15,6 +16,8 @@ export const startServer = () => {
   app.use(express.json());
 
   // ---------------------------------------   routes
+
+  app.use("/auth", authRouter);
 
   app.use("/chats", chatRouter);
 
