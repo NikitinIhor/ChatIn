@@ -6,12 +6,15 @@ import {
   getChatByIdController,
   updateController,
 } from "../controllers/chatController.js";
+import { authenticate } from "../middlewares/authenticate.js";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import { validateBody } from "../utils/validateBody.js";
 import { validateId } from "../utils/validateId.js";
 import { chatAddSchema } from "../validation/Chat.js";
 
 export const chatRouter = Router();
+
+chatRouter.use(authenticate);
 
 chatRouter.get("/", ctrlWrapper(getAllChatsController));
 
