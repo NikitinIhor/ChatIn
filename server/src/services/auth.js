@@ -65,6 +65,9 @@ export const findSessionByAccessToken = (accessToken) =>
   SessionCollection.findOne({ accessToken });
 // -----------------------------------------------------------
 
+export const findUser = (filter) => UserCollection.findOne(filter);
+// -----------------------------------------------------------
+
 export const refreshSession = async ({ refreshToken, sessionID }) => {
   const session = await SessionCollection.findOne({
     _id: sessionID,
@@ -91,5 +94,3 @@ export const refreshSession = async ({ refreshToken, sessionID }) => {
   return userSession;
 };
 // -----------------------------------------------------------
-
-export const findUser = (filter) => UserCollection.findOne(filter);
