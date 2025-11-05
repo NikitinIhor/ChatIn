@@ -19,7 +19,7 @@ export const startServer = () => {
 
   app.use("/auth", authRouter);
 
-  app.use("/chats", chatRouter);
+  app.use("/chat", chatRouter);
 
   // -----------------------------------------
 

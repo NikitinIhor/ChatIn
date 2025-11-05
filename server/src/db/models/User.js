@@ -27,6 +27,6 @@ const userSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-const UserCollection = model("User", userSchema);
+const UserCollection = model("user", userSchema);
 
 export default UserCollection;

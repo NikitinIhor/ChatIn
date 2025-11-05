@@ -35,4 +35,4 @@ const ChatSchema = new Schema(
   { versionKey: false, timestamps: true }
 );
 
-export const ChatCollection = model("chatin", ChatSchema);
+export const ChatCollection = model("chat", ChatSchema);

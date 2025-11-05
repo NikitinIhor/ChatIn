@@ -9,7 +9,7 @@ import { SessionCollection } from "../db/models/Session.js";
 import UserCollection from "../db/models/User.js";
 
 export const signup = async (payload) => {
-  const { email } = payload;
+  const { email, password } = payload;
 
   const user = await UserCollection.findOne({ email });
   if (user) {
@@ -42,7 +42,7 @@ export const signin = async (payload) => {
     throw createHttpError(401, `Password is invalid`);
   }
 
-  await SessionCollection.deleteOne({ userID: user._id });
+  await SessionCollection.deleteOne({ userId: user._id });
 
   const accessToken = randomBytes(30).toString("base64");
   const refreshToken = randomBytes(30).toString("base64");
@@ -68,9 +68,9 @@ export const findSessionByAccessToken = (accessToken) =>
 export const findUser = (filter) => UserCollection.findOne(filter);
 // -----------------------------------------------------------
 
-export const refreshSession = async ({ refreshToken, sessionID }) => {
+export const refreshSession = async ({ refreshToken, sessionId }) => {
   const session = await SessionCollection.findOne({
-    _id: sessionID,
+    _id: sessionId,
     refreshToken,
   });
 
@@ -82,12 +82,12 @@ export const refreshSession = async ({ refreshToken, sessionID }) => {
     throw createHttpError(401, "session token expired");
   }
 
-  await SessionCollection.deleteOne({ _id: sessionID });
+  await SessionCollection.deleteOne({ _id: sessionId });
 
   const sessionData = createSession();
 
   const userSession = await SessionCollection.create({
-    userID: session._id,
+    userId: session._id,
     ...sessionData,
   });
 
