@@ -3,7 +3,7 @@ import {
   createChat,
   deleteChat,
   getAllChats,
-  getChatById,
+  getChat,
   updateChat,
 } from "../services/chat.js";
 
@@ -21,7 +21,9 @@ export const getAllChatsController = async (req, res) => {
 export const getChatByIdController = async (req, res) => {
   const { id } = req.params;
 
-  const data = await getChatById(id);
+  const { _id: userId } = req.user;
+
+  const data = await getChat({ _id: id, userId });
 
   if (!data) {
     throw createHttpError(404, `Chat with ID ${id} not found`);
@@ -47,7 +49,9 @@ export const createChatController = async (req, res) => {
 export const updateController = async (req, res) => {
   const { id } = req.params;
 
-  const result = await updateChat(id, req.body);
+  const { _id: userId } = req.user;
+
+  const result = await updateChat({ id, userId }, req.body);
 
   if (!result) {
     throw createHttpError(404, `Chat with ID ${id} not found`);
@@ -62,7 +66,9 @@ export const updateController = async (req, res) => {
 export const deleteChatController = async (req, res) => {
   const { id } = req.params;
 
-  const data = await deleteChat({ _id: id });
+  const { _id: userId } = req.user;
+
+  const data = await deleteChat({ _id: id, userId });
 
   if (!data) {
     throw createHttpError(404, `Chat with ID ${id} not found`);

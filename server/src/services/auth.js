@@ -61,6 +61,11 @@ export const signin = async (payload) => {
 };
 // -----------------------------------------------------------
 
+export const signout = async (sessionId) => {
+  await SessionCollection.deleteOne({ _id: sessionId });
+};
+// -----------------------------------------------------------
+
 export const findSessionByAccessToken = (accessToken) =>
   SessionCollection.findOne({ accessToken });
 // -----------------------------------------------------------
@@ -84,11 +89,17 @@ export const refreshSession = async ({ refreshToken, sessionId }) => {
 
   await SessionCollection.deleteOne({ _id: sessionId });
 
-  const sessionData = createSession();
+  const accessToken = randomBytes(30).toString("base64");
+  const refreshToken = randomBytes(30).toString("base64");
+  const accessTokenValidUntil = new Date(Date.now() + accessTokenLifeTime);
+  const refreshTokenValidUntil = new Date(Date.now() + refreshTokenLifeTime);
 
   const userSession = await SessionCollection.create({
-    userId: session._id,
-    ...sessionData,
+    userId: user._id,
+    accessToken,
+    refreshToken,
+    accessTokenValidUntil,
+    refreshTokenValidUntil,
   });
 
   return userSession;

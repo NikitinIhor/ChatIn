@@ -4,7 +4,7 @@ export const getAllChats = async (userId) => {
   return await ChatCollection.find({ sender: userId });
 };
 
-export const getChatById = (id) => ChatCollection.findById(id);
+export const getChat = (filter) => ChatCollection.findById(filter);
 
 export const createChat = (payload) => ChatCollection.create(payload);
 

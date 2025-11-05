@@ -1,6 +1,8 @@
 import { Router } from "express";
 import {
+  refreshController,
   signinController,
+  signoutController,
   signupController,
 } from "../controllers/authController.js";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
@@ -20,5 +22,9 @@ authRouter.post(
   validateBody(userSigninSchema),
   ctrlWrapper(signinController)
 );
+
+authRouter.post("/refresh", ctrlWrapper(refreshController));
+
+authRouter.post("/signout", ctrlWrapper(signoutController));
 
 export default authRouter;
