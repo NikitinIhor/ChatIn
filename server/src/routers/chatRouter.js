@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { adminController } from "../controllers/adminController.js";
 import {
   createChatController,
   deleteChatController,
@@ -7,6 +8,7 @@ import {
   updateController,
 } from "../controllers/chatController.js";
 import { authenticate } from "../middlewares/authenticate.js";
+import { checkAdmin } from "../middlewares/checkAdmin.js";
 import { ctrlWrapper } from "../utils/ctrlWrapper.js";
 import { validateBody } from "../utils/validateBody.js";
 import { validateId } from "../utils/validateId.js";
@@ -17,6 +19,8 @@ export const chatRouter = Router();
 chatRouter.use(authenticate);
 
 chatRouter.get("/", ctrlWrapper(getAllChatsController));
+
+chatRouter.get("/admin", checkAdmin, ctrlWrapper(adminController));
 
 chatRouter.get("/:id", validateId, ctrlWrapper(getChatByIdController));
 

@@ -8,7 +8,9 @@ import {
 } from "../services/chat.js";
 
 export const getAllChatsController = async (req, res) => {
-  const data = await getAllChats();
+  const { _id: userId } = req.user;
+
+  const data = await getAllChats(userId);
 
   return res.status(200).json({
     message: "Successfully found all chats",
@@ -23,9 +25,6 @@ export const getChatByIdController = async (req, res) => {
 
   if (!data) {
     throw createHttpError(404, `Chat with ID ${id} not found`);
-    // return res.status(404).json({
-    //   message: `Chat with ID ${id} not found`,
-    // });
   }
 
   res.status(200).json({
@@ -35,7 +34,9 @@ export const getChatByIdController = async (req, res) => {
 };
 
 export const createChatController = async (req, res) => {
-  const data = await createChat(req.body);
+  const { _id: userId } = req.user;
+
+  const data = await createChat({ ...req.body, sender: userId });
 
   res.status(201).json({
     message: `Chat successfully created`,

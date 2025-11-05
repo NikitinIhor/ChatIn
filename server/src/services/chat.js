@@ -1,6 +1,8 @@
 import { ChatCollection } from "../db/models/Chat.js";
 
-export const getAllChats = () => ChatCollection.find();
+export const getAllChats = async (userId) => {
+  return await ChatCollection.find({ sender: userId });
+};
 
 export const getChatById = (id) => ChatCollection.findById(id);
 
