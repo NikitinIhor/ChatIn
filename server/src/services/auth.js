@@ -89,15 +89,15 @@ export const refreshSession = async ({ refreshToken, sessionId }) => {
 
   await SessionCollection.deleteOne({ _id: sessionId });
 
-  const accessToken = randomBytes(30).toString("base64");
-  const refreshToken = randomBytes(30).toString("base64");
+  const newAccessToken = randomBytes(30).toString("base64");
+  const newRefreshToken = randomBytes(30).toString("base64");
   const accessTokenValidUntil = new Date(Date.now() + accessTokenLifeTime);
   const refreshTokenValidUntil = new Date(Date.now() + refreshTokenLifeTime);
 
   const userSession = await SessionCollection.create({
-    userId: user._id,
-    accessToken,
-    refreshToken,
+    userId: session.userId,
+    accessToken: newAccessToken,
+    refreshToken: newRefreshToken,
     accessTokenValidUntil,
     refreshTokenValidUntil,
   });

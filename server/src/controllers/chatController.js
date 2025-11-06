@@ -51,7 +51,7 @@ export const updateController = async (req, res) => {
 
   const { _id: userId } = req.user;
 
-  const result = await updateChat({ id, userId }, req.body);
+  const result = await updateChat(id, userId, req.body);
 
   if (!result) {
     throw createHttpError(404, `Chat with ID ${id} not found`);
