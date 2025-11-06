@@ -2,21 +2,10 @@ import createHttpError from "http-errors";
 import {
   createChat,
   deleteChat,
-  getAllChats,
   getChat,
+  getConversation,
   updateChat,
 } from "../services/chat.js";
-
-export const getAllChatsController = async (req, res) => {
-  const { _id: userId } = req.user;
-
-  const data = await getAllChats(userId);
-
-  return res.status(200).json({
-    message: "Successfully found all chats",
-    data,
-  });
-};
 
 export const getChatByIdController = async (req, res) => {
   const { id } = req.params;
@@ -37,12 +26,17 @@ export const getChatByIdController = async (req, res) => {
 
 export const createChatController = async (req, res) => {
   const { _id: userId } = req.user;
+  const { receiverId } = req.params;
 
-  const data = await createChat({ ...req.body, sender: userId });
+  const chat = await createChat({
+    ...req.body,
+    sender: userId,
+    receiver: receiverId,
+  });
 
   res.status(201).json({
-    message: `Chat successfully created`,
-    data,
+    message: "Chat successfully created",
+    data: chat,
   });
 };
 
@@ -76,5 +70,18 @@ export const deleteChatController = async (req, res) => {
 
   res.status(204).json({
     message: `Chat with id:${id} deleted successfully`,
+  });
+};
+// ---------------------------------------------------------------------
+
+export const getConversationController = async (req, res) => {
+  const { userId } = req.params;
+  const currentUserId = req.user._id;
+
+  const conversation = await getConversation(currentUserId, userId);
+
+  res.status(200).json({
+    message: "Conversation fetched successfully",
+    data: conversation,
   });
 };
