@@ -32,6 +32,7 @@ chatRouter.post(
 chatRouter.patch("/:id", validateId, ctrlWrapper(updateController));
 
 chatRouter.delete("/:id", validateId, ctrlWrapper(deleteChatController));
+
 // --------------------------------------------------------------------------
 
 chatRouter.get(
