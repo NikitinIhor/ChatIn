@@ -1,3 +1,13 @@
 @import "normalize.css";
 @import url("./assets/css/container.css");
 @import url("./assets/css/reset.css");
+
+body {
+  font-family: sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  background-color: white;
+  color: black;
+  /* 14px */
+  font-size: 0.875rem;
+}

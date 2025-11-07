@@ -2,51 +2,49 @@ import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import * as Yup from "yup";
-// import { signup } from "../../redux/auth/ops";
+
+// import { signin } from "../../redux/auth/ops";
 // import { selectLoading } from "../../redux/auth/slice";
 // import { AppDispatch } from "../../redux/store";
 // import Loader from "../Loader/Loader";
 import { HiEye, HiEyeOff } from "react-icons/hi";
-import s from "./Signup.module.css";
+import s from "../Signup/Signup.module.css";
 
-interface SignupFormProps {
+interface SignInFormProps {
   login: boolean;
   handleChangeForm: () => void;
 }
 
-interface SignupFormValues {
-  name: string;
+interface SigninFormValues {
   email: string;
   password: string;
 }
 
-const initialValues: SignupFormValues = {
-  name: "",
+const initialValues: SigninFormValues = {
   email: "",
   password: "",
 };
 
 const FeedbackSchema = Yup.object().shape({
-  name: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required(),
   email: Yup.string().email("Enter a valid email").required(),
   password: Yup.string().min(6, "Too short").max(256, "Too long").required(),
 });
 
-const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
+const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
   const [showIcon, setShowIcon] = useState(false);
 
-  // const dispatch: AppDispatch = useDispatch();
-  // const loading = useSelector(selectLoading);
+  //   const dispatch: AppDispatch = useDispatch();
+  //   const loading = useSelector(selectLoading);
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
   };
 
-  const handleSubmit = async (values: SignupFormValues) => {
+  const handleSubmit = async (values: SigninFormValues) => {
     try {
-      // await dispatch(signup(values)).unwrap();
+      //   await dispatch(signin(values)).unwrap();
 
-      toast.success("Successfully registered!", {
+      toast.success("Successfully logged in!", {
         duration: 4000,
         position: "top-right",
       });
@@ -59,7 +57,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
     }
   };
 
-  // if (loading) return <Loader />;
+  //   if (loading) return <Loader />;
 
   return (
     <Formik
@@ -70,24 +68,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
       {({ errors, touched }) => (
         <Form className={s.form}>
           <div className={s.container}>
-            <label htmlFor="name">Name:</label>
-            <Field
-              className={`${s.field} ${s.name} ${
-                errors.name && touched.name
-                  ? s.errorField
-                  : touched.name && !errors.name
-                  ? s.validField
-                  : ""
-              }`}
-              type="text"
-              name="name"
-              placeholder="your name"
-            />
-            <ErrorMessage className={s.error} name="name" component="span" />
-          </div>
-
-          <div className={s.container}>
-            <label htmlFor="email">Mail:</label>
+            <label htmlFor="mail">Mail:</label>
             <Field
               className={`${s.field} ${s.mail} ${
                 errors.email && touched.email
@@ -98,7 +79,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
               }`}
               type="email"
               name="email"
-              placeholder="your email"
+              placeholder="you email"
             />
             <ErrorMessage className={s.error} name="email" component="span" />
           </div>
@@ -144,4 +125,4 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
   );
 };
 
-export default Signup;
+export default Signin;
