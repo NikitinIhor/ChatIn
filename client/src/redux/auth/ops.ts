@@ -27,6 +27,8 @@ export const signup = createAsyncThunk<
 
     setAuthHeader(res.data.token);
 
+    console.log(res.data);
+
     return res.data;
   } catch (error) {
     return handleThunkError(error, thunkAPI);
@@ -55,7 +57,7 @@ export const refresh = createAsyncThunk<RefreshUserResponse>(
   "auth/refresh",
   async (_, thunkAPI) => {
     try {
-      const res = await axios.get("/auth/refresh");
+      const res = await axios.post("/auth/refresh");
 
       setAuthHeader(res.data.token);
       return res.data;

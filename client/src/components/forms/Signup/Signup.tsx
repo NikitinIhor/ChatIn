@@ -5,8 +5,9 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { signup } from "../../../redux/auth/ops";
-import { selectLoading } from "../../../redux/auth/slice";
+import { selectError, selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
+import Error from "../../Error/Error";
 import Loader from "../../Loader/Loader";
 import s from "./Signup.module.css";
 
@@ -38,6 +39,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
+  const error = useSelector(selectError) as unknown;
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -61,6 +63,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
   };
 
   if (loading) return <Loader />;
+  if (error) return <Error />;
 
   return (
     <Formik

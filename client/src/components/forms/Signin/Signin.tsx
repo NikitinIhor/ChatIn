@@ -7,6 +7,7 @@ import * as Yup from "yup";
 import { signin } from "../../../redux/auth/ops";
 import { selectError, selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
+import Error from "../../Error/Error";
 import Loader from "../../Loader/Loader";
 import s from "../Signup/Signup.module.css";
 
@@ -35,7 +36,7 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError);
+  const error = useSelector(selectError) as unknown;
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -59,11 +60,7 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
   };
 
   if (loading) return <Loader />;
-
-  if (error) {
-    const errorMessage = typeof error === "string" ? error : "Unknown error";
-    return <div>{errorMessage}</div>;
-  }
+  if (error) return <Error />;
 
   return (
     <Formik
