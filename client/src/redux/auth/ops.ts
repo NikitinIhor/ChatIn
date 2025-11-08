@@ -51,16 +51,6 @@ export const signin = createAsyncThunk<
   }
 });
 
-export const signout = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
-  try {
-    await axios.post("/auth/signout");
-
-    clearAuthHeader();
-  } catch (error) {
-    return handleThunkError(error, thunkAPI);
-  }
-});
-
 export const refresh = createAsyncThunk<RefreshUserResponse>(
   "auth/refresh",
   async (_, thunkAPI) => {
@@ -74,3 +64,13 @@ export const refresh = createAsyncThunk<RefreshUserResponse>(
     }
   }
 );
+
+export const signout = createAsyncThunk("auth/signout", async (_, thunkAPI) => {
+  try {
+    await axios.post("/auth/signout");
+
+    clearAuthHeader();
+  } catch (error) {
+    return handleThunkError(error, thunkAPI);
+  }
+});

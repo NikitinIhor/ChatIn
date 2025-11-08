@@ -1,7 +1,11 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
 import { Toaster } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { Navigate, Route, Routes } from "react-router-dom";
 import Loader from "./components/forms/Loader/Loader";
+import { refresh } from "./redux/auth/ops";
+import { selectIsLoggedIn, selectIsRefreshing } from "./redux/auth/slice";
+import type { AppDispatch } from "./redux/store";
 
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ChatPage = lazy(() => import("./pages/ChatPage/ChatPage"));
@@ -9,15 +13,14 @@ const AdminPage = lazy(() => import("./pages/AdminPage/AdminPage"));
 const NotFoundPage = lazy(() => import("./pages/NotFouundPage/NotFouundPage"));
 
 const App: React.FC = () => {
-  //   const dispatch = useDispatch<AppDispatch>();
-  // const isRefreshing = useSelector(selectIsRefreshing);
+  const dispatch = useDispatch<AppDispatch>();
+  const isRefreshing = useSelector(selectIsRefreshing);
+  const isLoggedin = useSelector(selectIsLoggedIn);
 
-  // useEffect(() => {
-  //   dispatch(refresh());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(refresh());
+  }, [dispatch]);
 
-  const isRefreshing = false;
-  const isLoggedin = false;
   const isAdmin = false;
 
   return isRefreshing ? (
