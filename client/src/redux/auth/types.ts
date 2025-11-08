@@ -1,12 +1,14 @@
 export interface SignupCredentials {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
 export interface SignupResponse {
-  email: string;
-  name: string;
+  user: {
+    username: string;
+    email: string;
+  };
   token: string;
 }
 
@@ -16,14 +18,18 @@ export interface SigninCredentials {
 }
 
 export interface SigninResponse {
-  email: string;
-  name: string;
+  user: {
+    email: string;
+    username: string;
+  };
   token: string;
 }
 
 export interface RefreshUserResponse {
+  user: {
+    username: string;
+    email: string;
+  };
   _id: string;
-  name: string;
-  email: string;
   token: string;
 }

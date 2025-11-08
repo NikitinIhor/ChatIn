@@ -1,12 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import * as Yup from "yup";
-// import { signup } from "../../redux/auth/ops";
-// import { selectLoading } from "../../redux/auth/slice";
-// import { AppDispatch } from "../../redux/store";
-// import Loader from "../Loader/Loader";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { signup } from "../../../redux/auth/ops";
+import { selectLoading } from "../../../redux/auth/slice";
+import type { AppDispatch } from "../../../redux/store";
+import Loader from "../Loader/Loader";
 import s from "./Signup.module.css";
 
 interface SignupFormProps {
@@ -15,19 +16,19 @@ interface SignupFormProps {
 }
 
 interface SignupFormValues {
-  name: string;
+  username: string;
   email: string;
   password: string;
 }
 
 const initialValues: SignupFormValues = {
-  name: "",
+  username: "",
   email: "",
   password: "",
 };
 
 const FeedbackSchema = Yup.object().shape({
-  name: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required(),
+  username: Yup.string().min(3, "Too Short!").max(50, "Too Long!").required(),
   email: Yup.string().email("Enter a valid email").required(),
   password: Yup.string().min(6, "Too short").max(256, "Too long").required(),
 });
@@ -35,8 +36,8 @@ const FeedbackSchema = Yup.object().shape({
 const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
   const [showIcon, setShowIcon] = useState(false);
 
-  // const dispatch: AppDispatch = useDispatch();
-  // const loading = useSelector(selectLoading);
+  const dispatch: AppDispatch = useDispatch();
+  const loading = useSelector(selectLoading);
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -44,7 +45,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
 
   const handleSubmit = async (values: SignupFormValues) => {
     try {
-      // await dispatch(signup(values)).unwrap();
+      await dispatch(signup(values)).unwrap();
 
       toast.success("Successfully registered!", {
         duration: 4000,
@@ -59,7 +60,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
     }
   };
 
-  // if (loading) return <Loader />;
+  if (loading) return <Loader />;
 
   return (
     <Formik
@@ -70,20 +71,24 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
       {({ errors, touched }) => (
         <Form className={s.form}>
           <div className={s.container}>
-            <label htmlFor="name">Name:</label>
+            <label htmlFor="username">Name:</label>
             <Field
               className={`${s.field} ${s.name} ${
-                errors.name && touched.name
+                errors.username && touched.username
                   ? s.errorField
-                  : touched.name && !errors.name
+                  : touched.username && !errors.username
                   ? s.validField
                   : ""
               }`}
               type="text"
-              name="name"
+              name="username"
               placeholder="your name"
             />
-            <ErrorMessage className={s.error} name="name" component="span" />
+            <ErrorMessage
+              className={s.error}
+              name="username"
+              component="span"
+            />
           </div>
 
           <div className={s.container}>
@@ -117,7 +122,11 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
               name="password"
               placeholder="your password"
             />
-            <button className={s.btn_icon} onClick={handleShowIcon}>
+            <button
+              type="button"
+              className={s.btn_icon}
+              onClick={handleShowIcon}
+            >
               {showIcon ? <HiEyeOff size={20} /> : <HiEye size={20} />}
             </button>
             <ErrorMessage

@@ -56,7 +56,6 @@ label {
 }
 .login {
   font-size: calc(12 / 16 * 1rem);
-  color: black;
   text-decoration: underline;
   transition: color 0.4s ease;
 }

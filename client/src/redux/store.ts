@@ -12,6 +12,7 @@ import {
   REGISTER,
   REHYDRATE,
 } from "redux-persist";
+import { authReducer } from "./auth/slice";
 
 const authPersistConfig = {
   key: "auth",
