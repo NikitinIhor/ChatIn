@@ -1,12 +1,14 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { RootState } from "../store";
-import { signup } from "./ops";
+import { signin, signup } from "./ops";
+
+interface User {
+  username: string;
+  email: string;
+}
 
 interface AuthState {
-  user: {
-    username: string | null;
-    email: string | null;
-  };
+  user: User | null;
   token: string | null;
   isLoggedIn: boolean;
   loading: boolean;
@@ -15,10 +17,7 @@ interface AuthState {
 }
 
 const initialState: AuthState = {
-  user: {
-    username: null,
-    email: null,
-  },
+  user: null,
   token: null,
   isLoggedIn: false,
   loading: false,
@@ -49,7 +48,30 @@ const authSlice = createSlice({
       .addCase(signup.rejected, (state, action) => {
         state.loading = false;
         state.error =
-          typeof action.payload === "string" ? action.payload : "Unknown error";
+          typeof action.payload === "string"
+            ? action.payload
+            : action.error.message || "Unknown error";
+      })
+      .addCase(signin.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(signin.fulfilled, (state, action) => {
+        state.loading = false;
+        state.error = null;
+        state.user = {
+          username: action.payload.user.username,
+          email: action.payload.user.email,
+        };
+        state.token = action.payload.token;
+        state.isLoggedIn = true;
+      })
+      .addCase(signin.rejected, (state, action) => {
+        state.loading = false;
+        state.error =
+          typeof action.payload === "string"
+            ? action.payload
+            : action.error.message || "Unknown error";
       });
   },
 });

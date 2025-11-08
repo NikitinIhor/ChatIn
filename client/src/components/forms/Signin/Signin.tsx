@@ -1,13 +1,13 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import { useState } from "react";
 import toast from "react-hot-toast";
-import * as Yup from "yup";
-
-// import { signin } from "../../redux/auth/ops";
-// import { selectLoading } from "../../redux/auth/slice";
-// import { AppDispatch } from "../../redux/store";
-// import Loader from "../Loader/Loader";
 import { HiEye, HiEyeOff } from "react-icons/hi";
+import { useDispatch, useSelector } from "react-redux";
+import * as Yup from "yup";
+import { signin } from "../../../redux/auth/ops";
+import { selectError, selectLoading } from "../../../redux/auth/slice";
+import type { AppDispatch } from "../../../redux/store";
+import Loader from "../Loader/Loader";
 import s from "../Signup/Signup.module.css";
 
 interface SignInFormProps {
@@ -33,8 +33,9 @@ const FeedbackSchema = Yup.object().shape({
 const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
   const [showIcon, setShowIcon] = useState(false);
 
-  //   const dispatch: AppDispatch = useDispatch();
-  //   const loading = useSelector(selectLoading);
+  const dispatch: AppDispatch = useDispatch();
+  const loading = useSelector(selectLoading);
+  const error = useSelector(selectError);
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -42,7 +43,7 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
 
   const handleSubmit = async (values: SigninFormValues) => {
     try {
-      //   await dispatch(signin(values)).unwrap();
+      await dispatch(signin(values)).unwrap();
 
       toast.success("Successfully logged in!", {
         duration: 4000,
@@ -57,7 +58,12 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
     }
   };
 
-  //   if (loading) return <Loader />;
+  if (loading) return <Loader />;
+
+  if (error) {
+    const errorMessage = typeof error === "string" ? error : "Unknown error";
+    return <div>{errorMessage}</div>;
+  }
 
   return (
     <Formik
