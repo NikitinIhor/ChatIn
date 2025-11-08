@@ -10,32 +10,26 @@ export const signupController = async (req, res) => {
 };
 
 export const signinController = async (req, res) => {
-  const userSession = await signin(req.body);
+  const { session, user } = await signin(req.body);
 
-  const refreshTokenExpires = new Date(userSession.refreshTokenValidUntil);
+  const refreshTokenExpires = new Date(session.refreshTokenValidUntil);
 
-  if (isNaN(refreshTokenExpires.getTime())) {
-    return res.status(500).json({
-      status: 500,
-      message: "Invalid refresh token expiration date",
-    });
-  }
-
-  res.cookie("refreshToken", userSession.refreshToken, {
+  res.cookie("refreshToken", session.refreshToken, {
     httpOnly: true,
     expires: refreshTokenExpires,
   });
 
-  res.cookie("sessionId", userSession._id, {
+  res.cookie("sessionId", session._id, {
     httpOnly: true,
     expires: refreshTokenExpires,
   });
 
   res.json({
     status: 200,
-    message: "Seccessfuljy signed in",
+    message: "Signed in",
     data: {
-      accessToken: userSession.accessToken,
+      accessToken: session.accessToken,
+      user,
     },
   });
 };

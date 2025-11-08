@@ -23,9 +23,9 @@ export const signup = async (payload) => {
     password: hashPassword,
   });
 
-  delete data._doc.password;
-
-  return data._doc;
+  const userData = data.toObject();
+  delete userData.password;
+  return userData;
 };
 // -----------------------------------------------------------
 
@@ -46,10 +46,11 @@ export const signin = async (payload) => {
 
   const accessToken = randomBytes(30).toString("base64");
   const refreshToken = randomBytes(30).toString("base64");
+
   const accessTokenValidUntil = new Date(Date.now() + accessTokenLifeTime);
   const refreshTokenValidUntil = new Date(Date.now() + refreshTokenLifeTime);
 
-  const userSession = await SessionCollection.create({
+  const session = await SessionCollection.create({
     userId: user._id,
     accessToken,
     refreshToken,
@@ -57,7 +58,14 @@ export const signin = async (payload) => {
     refreshTokenValidUntil,
   });
 
-  return userSession;
+  const userObj = {
+    id: user._id,
+    username: user.username,
+    email: user.email,
+    role: user.role,
+  };
+
+  return { session, user: userObj };
 };
 // -----------------------------------------------------------
 
