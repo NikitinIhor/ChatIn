@@ -59,6 +59,7 @@ export const refreshController = async (req, res) => {
     message: "Seccessfully refreshed",
     data: {
       accessToken: userSession.accessToken,
+      user,
     },
   });
 };

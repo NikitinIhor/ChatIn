@@ -110,6 +110,10 @@ export const refreshSession = async ({ refreshToken, sessionId }) => {
     refreshTokenValidUntil,
   });
 
-  return userSession;
+  const user = await UserCollection.findById(session.userId).select(
+    "username email role"
+  );
+
+  return { userSession, user };
 };
 // -----------------------------------------------------------
