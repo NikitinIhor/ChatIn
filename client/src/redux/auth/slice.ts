@@ -5,6 +5,7 @@ import { refresh, signin, signout, signup } from "./ops";
 interface User {
   username: string;
   email: string;
+  role: string;
 }
 
 interface AuthState {
@@ -41,6 +42,7 @@ const authSlice = createSlice({
         state.user = {
           username: action.payload.user.username,
           email: action.payload.user.email,
+          role: action.payload.user.role,
         };
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -60,6 +62,7 @@ const authSlice = createSlice({
         state.user = {
           username: action.payload.user.username,
           email: action.payload.user.email,
+          role: action.payload.user.role,
         };
         state.token = action.payload.token;
         state.isLoggedIn = true;
@@ -76,6 +79,12 @@ const authSlice = createSlice({
       .addCase(refresh.fulfilled, (state, action) => {
         state.isRefreshing = false;
         state.token = action.payload.token;
+        state.user = {
+          username: action.payload.user.username,
+          email: action.payload.user.email,
+          role: action.payload.user.role,
+        };
+        state.isLoggedIn = true;
       })
       .addCase(refresh.rejected, (state, action) => {
         state.isRefreshing = false;

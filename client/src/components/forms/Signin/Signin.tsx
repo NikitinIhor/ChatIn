@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { signin } from "../../../redux/auth/ops";
 import { selectError, selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
-import Loader from "../Loader/Loader";
+import Loader from "../../Loader/Loader";
 import s from "../Signup/Signup.module.css";
 
 interface SignInFormProps {

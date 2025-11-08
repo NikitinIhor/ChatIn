@@ -7,7 +7,7 @@ import * as Yup from "yup";
 import { signup } from "../../../redux/auth/ops";
 import { selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
-import Loader from "../Loader/Loader";
+import Loader from "../../Loader/Loader";
 import s from "./Signup.module.css";
 
 interface SignupFormProps {
