@@ -1,12 +1,12 @@
-import Signout from "../../components/forms/Signout/Signout";
+import Header from "../../components/Header/Header";
 
 interface ChatPageProps {}
 
 const ChatPage: React.FC<ChatPageProps> = () => {
   return (
     <div className="container">
+      <Header />
       <p>ChatPage</p>
-      <Signout />
     </div>
   );
 };

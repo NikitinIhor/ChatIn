@@ -95,12 +95,12 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
                   ? s.validField
                   : ""
               }`}
-              type={showIcon ? "password" : "text"}
+              type={showIcon ? "text" : "password"}
               name="password"
               placeholder="your password"
             />
             <button className={s.btn_icon} onClick={handleShowIcon}>
-              {showIcon ? <HiEyeOff size={20} /> : <HiEye size={20} />}
+              {showIcon ? <HiEye size={20} /> : <HiEyeOff size={20} />}
             </button>
             <ErrorMessage
               className={s.error}

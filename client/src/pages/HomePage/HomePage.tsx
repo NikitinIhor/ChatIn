@@ -2,6 +2,7 @@ import { useState } from "react";
 import Signin from "../../components/forms/Signin/Signin";
 import Signup from "../../components/forms/Signup/Signup";
 import s from "./HomePage.module.css";
+import logo from "/images/logo.png";
 
 interface HomePageProps {}
 
@@ -14,8 +15,8 @@ const HomePage: React.FC<HomePageProps> = () => {
 
   return (
     <div className="container">
-      <h1 className={s.title}>ChatIn</h1>
-      <p className={s.text}>welcome to ChatIn</p>
+      <img className={s.logo} src={logo} alt="logo" />
+
       {login ? (
         <Signin login={login} handleChangeForm={handleChangeForm} />
       ) : (

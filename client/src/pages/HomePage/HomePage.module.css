@@ -1,7 +1,4 @@
-.title {
-  margin-bottom: calc(10 / 16 * 1rem);
-  margin-top: calc(40 / 16 * 1rem);
-}
-.text {
+.logo {
+  padding-top: calc(40 / 16 * 1rem);
   margin-bottom: calc(40 / 16 * 1rem);
 }

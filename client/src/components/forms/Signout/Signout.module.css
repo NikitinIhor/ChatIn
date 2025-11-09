@@ -6,7 +6,8 @@
   border-radius: 12px;
   text-decoration: none;
   font-weight: 500;
-  transition: background-color 0.4s ease, transform 0.2s ease;
+  transition: background-color 0.4s ease, transform 0.4s ease;
+  font-size: calc(20 / 16 * 1rem);
 }
 
 .button:hover {

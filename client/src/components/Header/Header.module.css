@@ -1,0 +1,11 @@
+.wrapper {
+  padding-top: 40px;
+  justify-content: space-between;
+  gap: calc(10 / 16 * 1rem);
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  width: 200px;
+}

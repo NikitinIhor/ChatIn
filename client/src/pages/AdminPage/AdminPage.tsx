@@ -1,12 +1,12 @@
-import Signout from "../../components/forms/Signout/Signout";
+import Header from "../../components/Header/Header";
 
 interface AdminPageProps {}
 
 const AdminPage: React.FC<AdminPageProps> = () => {
   return (
-    <div>
+    <div className="container">
+      <Header />
       <p>AdminPage</p>
-      <Signout />
     </div>
   );
 };
