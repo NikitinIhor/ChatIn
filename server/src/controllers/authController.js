@@ -37,7 +37,11 @@ export const signinController = async (req, res) => {
 export const refreshController = async (req, res) => {
   const { refreshToken, sessionId } = req.cookies;
 
-  const userSession = await refreshSession({
+  if (!refreshToken || !sessionId) {
+    throw createHttpError(401, "Missing refresh token or session ID");
+  }
+
+  const { userSession, user } = await refreshSession({
     refreshToken,
     sessionId,
   });
