@@ -4,8 +4,48 @@
   gap: calc(10 / 16 * 1rem);
   display: flex;
   align-items: center;
+  border-bottom: 1px solid white;
 }
-
+.info {
+  display: flex;
+  align-items: center;
+  gap: calc(20 / 16 * 1rem);
+}
 .logo {
   width: 200px;
+}
+.user {
+  display: flex;
+  align-items: center;
+  gap: calc(10 / 16 * 1rem);
+  padding: calc(10 / 16 * 1rem) calc(20 / 16 * 1rem);
+  border: 1px solid;
+  border-color: transparent;
+  border-radius: 20px;
+  transition: border-color 0.4s ease, background-color 0.4s ease;
+}
+.user:hover {
+  border-color: white;
+  background-color: rgb(44, 44, 44);
+}
+.circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(40 / 16 * 1rem);
+  height: calc(40 / 16 * 1rem);
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+  border-radius: 50%;
+}
+.inside_circle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: calc(35 / 16 * 1rem);
+  height: calc(35 / 16 * 1rem);
+  border-radius: 50%;
+  background-color: white;
+  color: black;
+  font-size: calc(28 / 16 * 1rem);
+  font-weight: bold;
 }

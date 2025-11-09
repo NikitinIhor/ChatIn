@@ -19,15 +19,19 @@ const Header: React.FC<HeaderProps> = () => {
             <img className={s.logo} src={logo} alt="logo" />
           </div>
 
-          <div>
-            <button type="button">
-              <FaRegUser size={28} />
+          <div className={s.info}>
+            <button type="button" className={s.user}>
               <div>
-                <span>{username}</span>
+                <FaRegUser size={30} />
+              </div>
+              <div className={s.circle}>
+                <div className={s.inside_circle}>
+                  <span>{username?.slice(0, 1).toUpperCase()}</span>
+                </div>
               </div>
             </button>
+            <Signout />
           </div>
-          <Signout />
         </div>
       </div>
     </header>
