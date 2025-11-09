@@ -1,15 +1,14 @@
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../../../redux/auth/ops";
-import { selectLoading, selectUser } from "../../../redux/auth/slice";
+import { selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
 import Loader from "../../Loader/Loader";
 
+import s from "./Signout.module.css";
+
 const Signout: React.FC = () => {
   const loading = useSelector(selectLoading);
-
-  const user = useSelector(selectUser);
-  const username = user?.username;
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -17,7 +16,7 @@ const Signout: React.FC = () => {
     try {
       await dispatch(signout()).unwrap();
 
-      toast.success(`Good bye ${username}`, {
+      toast.success(`Good bye`, {
         duration: 4000,
         position: "top-right",
       });
@@ -33,7 +32,11 @@ const Signout: React.FC = () => {
 
   if (loading) return <Loader />;
 
-  return <button onClick={handleSignout}>Signout</button>;
+  return (
+    <button className={s.button} onClick={handleSignout}>
+      Signout
+    </button>
+  );
 };
 
 export default Signout;

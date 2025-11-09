@@ -28,10 +28,6 @@ const App: React.FC = () => {
     dispatch(refresh());
   }, [dispatch]);
 
-  // const isRefreshing = false;
-  // const isLoggedin = false;
-  // const isAdmin = false;
-
   return isRefreshing ? (
     <Loader />
   ) : (
@@ -42,20 +38,31 @@ const App: React.FC = () => {
           <Route
             path="/"
             element={
-              isLoggedin ? <Navigate to="/chat" replace /> : <HomePage />
+              isLoggedin ? (
+                isAdmin ? (
+                  <Navigate to="/admin" replace />
+                ) : (
+                  <Navigate to="/chat" replace />
+                )
+              ) : (
+                <HomePage />
+              )
             }
           />
-
           <Route
             path="/chat"
-            element={isLoggedin ? <ChatPage /> : <Navigate to="/" replace />}
+            element={
+              isLoggedin && !isAdmin ? (
+                <ChatPage />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
           />
-
           <Route
             path="/admin"
             element={isAdmin ? <AdminPage /> : <Navigate to="/" replace />}
           />
-
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </Suspense>

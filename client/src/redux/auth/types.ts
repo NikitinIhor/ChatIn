@@ -20,13 +20,15 @@ export interface SigninCredentials {
 
 export interface SigninResponse {
   data: {
-    email: string;
-    username: string;
-    role: string;
+    accessToken: string;
+    user: {
+      id: string;
+      username: string;
+      email: string;
+      role: string;
+    };
   };
-  accessToken: string;
 }
-
 export interface RefreshUserResponse {
   data: {
     username: string;

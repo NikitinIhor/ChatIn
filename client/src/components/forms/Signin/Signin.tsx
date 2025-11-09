@@ -5,7 +5,7 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { signin } from "../../../redux/auth/ops";
-import { selectLoading, selectUser } from "../../../redux/auth/slice";
+import { selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
 import Loader from "../../Loader/Loader";
 import s from "../Signup/Signup.module.css";
@@ -36,18 +36,15 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
 
-  const user = useSelector(selectUser);
-  const username = user?.username;
-
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
   };
 
   const handleSubmit = async (values: SigninFormValues) => {
     try {
-      await dispatch(signin(values)).unwrap();
+      const result = await dispatch(signin(values)).unwrap();
 
-      toast.success(`Welcome ${username}`, {
+      toast.success(`Welcome back ${result.data?.user?.username}`, {
         duration: 4000,
         position: "top-right",
       });

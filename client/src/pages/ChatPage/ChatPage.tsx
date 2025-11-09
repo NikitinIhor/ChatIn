@@ -4,7 +4,7 @@ interface ChatPageProps {}
 
 const ChatPage: React.FC<ChatPageProps> = () => {
   return (
-    <div>
+    <div className="container">
       <p>ChatPage</p>
       <Signout />
     </div>

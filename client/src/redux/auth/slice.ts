@@ -55,8 +55,8 @@ const authSlice = createSlice({
       .addCase(signin.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.user = action.payload.data;
-        state.token = action.payload.accessToken;
+        state.user = action.payload.data.user;
+        state.token = action.payload.data.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(signin.rejected, (state, action) => {
