@@ -10,7 +10,7 @@ export interface SignupResponse {
     email: string;
     role: string;
   };
-  token: string;
+  accessToken: string;
 }
 
 export interface SigninCredentials {
@@ -24,7 +24,7 @@ export interface SigninResponse {
     username: string;
     role: string;
   };
-  token: string;
+  accessToken: string;
 }
 
 export interface RefreshUserResponse {
@@ -34,5 +34,5 @@ export interface RefreshUserResponse {
     role: string;
   };
   _id: string;
-  token: string;
+  accessToken: string;
 }

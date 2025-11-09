@@ -5,9 +5,8 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { signin } from "../../../redux/auth/ops";
-import { selectError, selectLoading } from "../../../redux/auth/slice";
+import { selectLoading, selectUser } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
-import Error from "../../Error/Error";
 import Loader from "../../Loader/Loader";
 import s from "../Signup/Signup.module.css";
 
@@ -36,7 +35,7 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError) as unknown;
+  const user = useSelector(selectUser);
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -46,12 +45,13 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
     try {
       await dispatch(signin(values)).unwrap();
 
-      toast.success("Successfully logged in!", {
+      toast.success(`Welcome ${user?.username}`, {
         duration: 4000,
         position: "top-right",
       });
     } catch (error) {
-      const errorMessage = error as string;
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       toast.error(errorMessage, {
         duration: 4000,
         position: "top-right",
@@ -60,7 +60,6 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
   };
 
   if (loading) return <Loader />;
-  if (error) return <Error />;
 
   return (
     <Formik

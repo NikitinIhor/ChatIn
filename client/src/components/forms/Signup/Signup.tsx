@@ -5,9 +5,8 @@ import { HiEye, HiEyeOff } from "react-icons/hi";
 import { useDispatch, useSelector } from "react-redux";
 import * as Yup from "yup";
 import { signup } from "../../../redux/auth/ops";
-import { selectError, selectLoading } from "../../../redux/auth/slice";
+import { selectLoading } from "../../../redux/auth/slice";
 import type { AppDispatch } from "../../../redux/store";
-import Error from "../../Error/Error";
 import Loader from "../../Loader/Loader";
 import s from "./Signup.module.css";
 
@@ -39,7 +38,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  const error = useSelector(selectError) as unknown;
+  // const error = useSelector(selectError) as unknown;
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -54,7 +53,8 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
         position: "top-right",
       });
     } catch (error) {
-      const errorMessage = error as string;
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
       toast.error(errorMessage, {
         duration: 4000,
         position: "top-right",
@@ -63,7 +63,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
   };
 
   if (loading) return <Loader />;
-  if (error) return <Error />;
+  // if (error) return <Error />;
 
   return (
     <Formik
@@ -74,7 +74,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
       {({ errors, touched }) => (
         <Form className={s.form}>
           <div className={s.container}>
-            <label htmlFor="username">Name:</label>
+            <label htmlFor="name">Name:</label>
             <Field
               className={`${s.field} ${s.name} ${
                 errors.username && touched.username

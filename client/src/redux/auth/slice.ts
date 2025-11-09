@@ -39,12 +39,8 @@ const authSlice = createSlice({
       .addCase(signup.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.user = {
-          username: action.payload.user.username,
-          email: action.payload.user.email,
-          role: action.payload.user.role,
-        };
-        state.token = action.payload.token;
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(signup.rejected, (state, action) => {
@@ -59,12 +55,8 @@ const authSlice = createSlice({
       .addCase(signin.fulfilled, (state, action) => {
         state.loading = false;
         state.error = null;
-        state.user = {
-          username: action.payload.user.username,
-          email: action.payload.user.email,
-          role: action.payload.user.role,
-        };
-        state.token = action.payload.token;
+        state.user = action.payload.user;
+        state.token = action.payload.accessToken;
         state.isLoggedIn = true;
       })
       .addCase(signin.rejected, (state, action) => {
@@ -78,12 +70,8 @@ const authSlice = createSlice({
       })
       .addCase(refresh.fulfilled, (state, action) => {
         state.isRefreshing = false;
-        state.token = action.payload.token;
-        state.user = {
-          username: action.payload.user.username,
-          email: action.payload.user.email,
-          role: action.payload.user.role,
-        };
+        state.token = action.payload.accessToken;
+        state.user = action.payload.user;
         state.isLoggedIn = true;
       })
       .addCase(refresh.rejected, (state, action) => {
