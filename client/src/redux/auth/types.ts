@@ -5,7 +5,7 @@ export interface SignupCredentials {
 }
 
 export interface SignupResponse {
-  user: {
+  data: {
     username: string;
     email: string;
     role: string;
@@ -19,7 +19,7 @@ export interface SigninCredentials {
 }
 
 export interface SigninResponse {
-  user: {
+  data: {
     email: string;
     username: string;
     role: string;
@@ -28,7 +28,7 @@ export interface SigninResponse {
 }
 
 export interface RefreshUserResponse {
-  user: {
+  data: {
     username: string;
     email: string;
     role: string;

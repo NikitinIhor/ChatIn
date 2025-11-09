@@ -38,17 +38,15 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
-  // const error = useSelector(selectError) as unknown;
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
   };
-
   const handleSubmit = async (values: SignupFormValues) => {
     try {
-      await dispatch(signup(values)).unwrap();
+      const result = await dispatch(signup(values)).unwrap();
 
-      toast.success("Successfully registered!", {
+      toast.success(`Welcome ${result.data?.username}`, {
         duration: 4000,
         position: "top-right",
       });
@@ -63,7 +61,6 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
   };
 
   if (loading) return <Loader />;
-  // if (error) return <Error />;
 
   return (
     <Formik

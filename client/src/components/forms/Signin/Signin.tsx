@@ -35,7 +35,9 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
 
   const dispatch: AppDispatch = useDispatch();
   const loading = useSelector(selectLoading);
+
   const user = useSelector(selectUser);
+  const username = user?.username;
 
   const handleShowIcon = () => {
     setShowIcon((prev) => !prev);
@@ -45,7 +47,7 @@ const Signin: React.FC<SignInFormProps> = ({ login, handleChangeForm }) => {
     try {
       await dispatch(signin(values)).unwrap();
 
-      toast.success(`Welcome ${user?.username}`, {
+      toast.success(`Welcome ${username}`, {
         duration: 4000,
         position: "top-right",
       });
