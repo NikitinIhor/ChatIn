@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { ChatCollection } from "../db/models/Chat.js";
+import UserCollection from "../db/models/User.js";
 
 export const getChat = (filter) => ChatCollection.findById(filter);
 
@@ -42,4 +43,4 @@ export const getConversation = async (user1, user2) => {
 };
 
 export const getAllUsers = (filter) =>
-  UserCollection.find(filter).select("username -_id");
+  UserCollection.find(filter).select("username avatar isActive -_id");

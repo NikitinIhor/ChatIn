@@ -24,6 +24,8 @@ chatRouter.get("/admin", checkAdmin, ctrlWrapper(adminController));
 
 // --------------------------------------------------------------------------admin
 
+chatRouter.get("/users", authenticate, ctrlWrapper(getAllUsersController));
+
 chatRouter.get("/:id", validateId, ctrlWrapper(getChatByIdController));
 
 chatRouter.post(
@@ -35,8 +37,6 @@ chatRouter.post(
 chatRouter.patch("/:id", validateId, ctrlWrapper(updateController));
 
 chatRouter.delete("/:id", validateId, ctrlWrapper(deleteChatController));
-
-chatRouter.get("/users", authenticate, ctrlWrapper(getAllUsersController));
 
 // --------------------------------------------------------------------------
 

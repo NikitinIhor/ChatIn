@@ -2,6 +2,7 @@ import createHttpError from "http-errors";
 import {
   createChat,
   deleteChat,
+  getAllUsers,
   getChat,
   getConversation,
   updateChat,
