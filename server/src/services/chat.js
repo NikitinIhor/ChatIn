@@ -43,4 +43,4 @@ export const getConversation = async (user1, user2) => {
 };
 
 export const getAllUsers = (filter) =>
-  UserCollection.find(filter).select("username avatar isActive -_id");
+  UserCollection.find(filter).select("username avatar isActive");
