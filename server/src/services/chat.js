@@ -40,3 +40,6 @@ export const getConversation = async (user1, user2) => {
 
   return conversation;
 };
+
+export const getAllUsers = (filter) =>
+  UserCollection.find(filter).select("username -_id");

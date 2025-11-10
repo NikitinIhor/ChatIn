@@ -85,3 +85,22 @@ export const getConversationController = async (req, res) => {
     data: conversation,
   });
 };
+
+export const getAllUsersController = async (req, res) => {
+  const { search } = req.query;
+
+  const filter = {
+    _id: { $ne: req.user._id },
+  };
+
+  if (search) {
+    filter.username = { $regex: search, $options: "i" };
+  }
+
+  const users = await getAllUsers(filter);
+
+  res.status(200).json({
+    message: "Successfully found users",
+    data: users,
+  });
+};

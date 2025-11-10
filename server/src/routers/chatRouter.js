@@ -3,6 +3,7 @@ import { adminController } from "../controllers/adminController.js";
 import {
   createChatController,
   deleteChatController,
+  getAllUsersController,
   getChatByIdController,
   getConversationController,
   updateController,
@@ -21,6 +22,8 @@ chatRouter.use(authenticate);
 
 chatRouter.get("/admin", checkAdmin, ctrlWrapper(adminController));
 
+// --------------------------------------------------------------------------admin
+
 chatRouter.get("/:id", validateId, ctrlWrapper(getChatByIdController));
 
 chatRouter.post(
@@ -32,6 +35,8 @@ chatRouter.post(
 chatRouter.patch("/:id", validateId, ctrlWrapper(updateController));
 
 chatRouter.delete("/:id", validateId, ctrlWrapper(deleteChatController));
+
+chatRouter.get("/users", authenticate, ctrlWrapper(getAllUsersController));
 
 // --------------------------------------------------------------------------
 
