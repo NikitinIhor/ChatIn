@@ -46,7 +46,7 @@ const Signup: React.FC<SignupFormProps> = ({ login, handleChangeForm }) => {
     try {
       const result = await dispatch(signup(values)).unwrap();
 
-      toast.success(`Welcome ${result.data?.username}`, {
+      toast.success(`Welcome ${result.data?.user.username}`, {
         duration: 4000,
         position: "top-right",
       });

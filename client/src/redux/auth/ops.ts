@@ -12,22 +12,27 @@ import type {
   SigninCredentials,
   SigninResponse,
   SignupCredentials,
-  SignupResponse,
 } from "./types";
 
 axios.defaults.baseURL = URL;
 
 export const signup = createAsyncThunk<
-  SignupResponse,
+  SigninResponse,
   SignupCredentials,
   { rejectValue: string }
 >("auth/signup", async (credentials, thunkAPI) => {
   try {
-    const res = await axios.post("/auth/signup", credentials);
+    await axios.post("/auth/signup", credentials);
+
+    const signinPayload = {
+      email: credentials.email,
+      password: credentials.password,
+    };
+
+    const res = await axios.post("/auth/signin", signinPayload);
 
     setAuthHeader(res.data.data.accessToken);
-    console.log("register", res.data.data.accessToken);
-    console.log("register data", res.data);
+
     return res.data;
   } catch (error) {
     return handleThunkError(error, thunkAPI);
