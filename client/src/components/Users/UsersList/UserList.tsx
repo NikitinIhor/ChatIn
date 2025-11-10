@@ -42,8 +42,12 @@ const UsersList: React.FC<UsersListProps> = () => {
         className={s.input}
       />
       <ul className={s.list}>
-        {users.map((user) => (
-          <li key={user._id} className={s.item} data-active={user.isActive}>
+        {users.map((user, index) => (
+          <li
+            key={user._id ?? index}
+            className={s.item}
+            data-active={user.isActive}
+          >
             <img src={user.avatar || defaultAcatar} alt={user.username} />
             <span className={s.name}>{user.username}</span>
             <span

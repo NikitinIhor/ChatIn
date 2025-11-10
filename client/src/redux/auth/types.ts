@@ -6,13 +6,16 @@ export interface SignupCredentials {
 
 export interface SignupResponse {
   data: {
-    username: string;
-    email: string;
-    role: string;
-    isActive: boolean;
-    avatar: string | null;
+    accessToken: string;
+    user: {
+      _id: string;
+      username: string;
+      email: string;
+      role: string;
+      isActive: boolean;
+      avatar: string | null;
+    };
   };
-  accessToken: string;
 }
 
 export interface SigninCredentials {
@@ -33,14 +36,17 @@ export interface SigninResponse {
     };
   };
 }
+
 export interface RefreshUserResponse {
   data: {
-    username: string;
-    email: string;
-    role: string;
-    isActive: boolean;
-    avatar: string | null;
+    accessToken: string;
+    user: {
+      _id: string;
+      username: string;
+      email: string;
+      role: string;
+      isActive: boolean;
+      avatar: string | null;
+    };
   };
-  _id: string;
-  accessToken: string;
 }

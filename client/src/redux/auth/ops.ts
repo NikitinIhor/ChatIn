@@ -25,8 +25,9 @@ export const signup = createAsyncThunk<
   try {
     const res = await axios.post("/auth/signup", credentials);
 
-    setAuthHeader(res.data.token);
-
+    setAuthHeader(res.data.data.accessToken);
+    console.log("register", res.data.data.accessToken);
+    console.log("register data", res.data);
     return res.data;
   } catch (error) {
     return handleThunkError(error, thunkAPI);
@@ -41,7 +42,7 @@ export const signin = createAsyncThunk<
   try {
     const res = await axios.post("/auth/signin", credentials);
 
-    setAuthHeader(res.data.token);
+    setAuthHeader(res.data.data.accessToken);
 
     return res.data;
   } catch (error) {
@@ -55,7 +56,8 @@ export const refresh = createAsyncThunk<RefreshUserResponse>(
     try {
       const res = await axios.post("/auth/refresh");
 
-      setAuthHeader(res.data.token);
+      setAuthHeader(res.data.data.accessToken);
+
       return res.data;
     } catch (error) {
       return handleThunkError(error, thunkAPI);
