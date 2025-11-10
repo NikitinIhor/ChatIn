@@ -9,6 +9,8 @@ export interface SignupResponse {
     username: string;
     email: string;
     role: string;
+    isActive: boolean;
+    avatar: string | null;
   };
   accessToken: string;
 }
@@ -22,10 +24,12 @@ export interface SigninResponse {
   data: {
     accessToken: string;
     user: {
-      id: string;
+      _id: string;
       username: string;
       email: string;
       role: string;
+      isActive: boolean;
+      avatar: string | null;
     };
   };
 }
@@ -34,6 +38,8 @@ export interface RefreshUserResponse {
     username: string;
     email: string;
     role: string;
+    isActive: boolean;
+    avatar: string | null;
   };
   _id: string;
   accessToken: string;

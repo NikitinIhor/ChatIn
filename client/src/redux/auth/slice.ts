@@ -3,9 +3,12 @@ import type { RootState } from "../store";
 import { refresh, signin, signout, signup } from "./ops";
 
 interface User {
+  _id?: string;
   username: string;
   email: string;
   role: string;
+  isActive: boolean;
+  avatar: string | null;
 }
 
 interface AuthState {
