@@ -14,6 +14,7 @@ import type { AppDispatch } from "./redux/store";
 const HomePage = lazy(() => import("./pages/HomePage/HomePage"));
 const ChatPage = lazy(() => import("./pages/ChatPage/ChatPage"));
 const AdminPage = lazy(() => import("./pages/AdminPage/AdminPage"));
+const UserChat = lazy(() => import("./pages/UserChat/UserChat"));
 const NotFoundPage = lazy(() => import("./pages/NotFouundPage/NotFouundPage"));
 
 const App: React.FC = () => {
@@ -62,6 +63,16 @@ const App: React.FC = () => {
           <Route
             path="/admin"
             element={isAdmin ? <AdminPage /> : <Navigate to="/" replace />}
+          />
+          <Route
+            path="/userchat/:userId"
+            element={
+              isLoggedin && !isAdmin ? (
+                <UserChat />
+              ) : (
+                <Navigate to="/" replace />
+              )
+            }
           />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>

@@ -9,8 +9,8 @@ import {
 } from "../../../redux/users/slice";
 import Error from "../../Error/Error";
 import Loader from "../../Loader/Loader";
+import User from "../User/User";
 import s from "./UsersList.module.css";
-import defaultAcatar from "/images/default-avatar.jpg";
 
 interface UsersListProps {}
 
@@ -43,17 +43,8 @@ const UsersList: React.FC<UsersListProps> = () => {
       />
       <ul className={s.list}>
         {users.map((user, index) => (
-          <li
-            key={user._id ?? index}
-            className={s.item}
-            data-active={user.isActive}
-          >
-            <img src={user.avatar || defaultAcatar} alt={user.username} />
-            <span className={s.name}>{user.username}</span>
-            <span
-              className={s.status}
-              title={user.isActive ? "Active" : "Inactive"}
-            />
+          <li key={user._id ?? index}>
+            <User user={user} />
           </li>
         ))}
       </ul>
