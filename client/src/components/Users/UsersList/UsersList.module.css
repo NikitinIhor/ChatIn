@@ -1,0 +1,22 @@
+h2 {
+  margin-bottom: 20px;
+  text-align: center;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.input {
+  width: 100%;
+  padding: 10px 14px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  outline: none;
+  transition: border 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.input:focus {
+  border-color: #6b46c1;
+  box-shadow: 0px 0px 4px rgba(107, 70, 193, 0.3);
+}

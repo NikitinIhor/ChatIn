@@ -1,0 +1,14 @@
+@import "normalize.css";
+@import url("./assets/css/container.css");
+@import url("./assets/css/reset.css");
+
+body {
+  font-family: sans-serif;
+  font-weight: 500;
+  line-height: 1;
+  background: linear-gradient(to bottom, #0d1117, #1a1f29);
+  min-height: 100vh;
+  color: #b0b0b0;
+  /* 14px */
+  font-size: 0.875rem;
+}
